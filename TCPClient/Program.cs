@@ -21,12 +21,12 @@ namespace TCPClient
 
                 Thread receiveThread = new Thread(handler.ReceiveMessage); // запускаем новый поток для получения данных
                 receiveThread.Start();
-                Console.WriteLine("Соединение с сервером установлено");
+                handler.logger.Write("Соединение с сервером установлено");
                 handler.SendMessage();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                handler.logger.Write(ex.Message);
             }
             finally
             {

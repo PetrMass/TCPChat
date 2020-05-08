@@ -12,6 +12,8 @@ namespace TCPServer
     {
         TcpListener tcpListener;
         public List<ClientWorker> clients = new List<ClientWorker>(); // все подключения
+        MessageViewer viewer = new MessageViewer();
+        public Logger logger = new Logger();
 
         public void AddConnection(ClientWorker clientObject)
         {
@@ -23,7 +25,7 @@ namespace TCPServer
             {
                 if (clients[i].Id == id)
                 {
-                    Console.WriteLine("клиент {0} удален", clients[i].userName);
+                    logger.Write(String.Format("клиент {0} удален", clients[i].userName));
                     clients.Remove(clients[i]);                    
                 }
             }
@@ -35,7 +37,7 @@ namespace TCPServer
             {
                 tcpListener = new TcpListener(IPAddress.Parse("127.0.0.1"), 8888);
                 tcpListener.Start();
-                Console.WriteLine("Сервер запущен. Ожидание подключений...");
+                logger.Write("Сервер запущен. Ожидание подключений...");
 
                 while (true)
                 {
@@ -47,7 +49,7 @@ namespace TCPServer
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                logger.Write(ex.Message);
                 Disconnect();
             }
         }
@@ -95,7 +97,7 @@ namespace TCPServer
             for (int i = 0; i < clients.Count; i++)
             {
                 clients[i].Close(); //отключение клиента
-                Console.WriteLine("отключение клиентов");
+                logger.Write("отключение клиентов");
             }            
         }
     }

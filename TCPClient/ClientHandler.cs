@@ -11,6 +11,8 @@ namespace TCPClient
         public NetworkStream stream;
         public const string host = "127.0.0.1";
         public const int port = 8888;
+        public Logger logger = new Logger();
+        MessageViewer viewer = new MessageViewer();
 
         public void SendMessage() // отправка сообщений
         {
@@ -39,11 +41,11 @@ namespace TCPClient
                     while (stream.DataAvailable);
 
                     string message = builder.ToString();
-                    Console.WriteLine(message);
+                    viewer.Write(message);
                 }
                 catch
                 {
-                    Console.WriteLine("Подключение прервано!"); //соединение было прервано
+                    logger.Write("Подключение прервано!");
                     Console.ReadLine();
                     Disconnect();
                 }
@@ -56,7 +58,7 @@ namespace TCPClient
                 stream.Close();//отключение потока
             if (client != null)
                 client.Close();//отключение клиента
-            Console.WriteLine("дисконект");
+            logger.Write("дисконект");
             Console.ReadKey();
         }
 

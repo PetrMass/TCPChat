@@ -15,6 +15,7 @@ namespace TCPServer
         public string userName;
         TcpClient client;
         ServerObject server;
+        MessageViewer viewer = new MessageViewer();
 
         public ClientWorker(TcpClient tcpClient, ServerObject serverObject)
         {
@@ -33,7 +34,7 @@ namespace TCPServer
 
                 string message = userName + " вошел в чат"; // посылаем сообщение о входе в чат всем подключенным пользователям
                 server.BroadcastMessage(message, this.Id, this.senderName);
-                Console.WriteLine(message);
+                server.logger.Write(message);
                 
                 while (true) // в бесконечном цикле получаем сообщения от клиента
                 {
@@ -46,7 +47,7 @@ namespace TCPServer
                         }
                         else if (message != null)
                         {
-                            Console.WriteLine("{0}(to {1}): {2}", userName, senderName, message);
+                            viewer.Write(String.Format("{0}(to {1}): {2}", userName, senderName, message));
                             message = String.Format("{0}: {1}", userName, message);
                             server.BroadcastMessage(message, this.Id, this.senderName);
                         }
@@ -54,8 +55,7 @@ namespace TCPServer
                     }
                     catch
                     {
-                        message = String.Format("{0}: покинул чат", userName);
-                        Console.WriteLine(message);
+                        server.logger.Write(String.Format("{0}: покинул чат", userName));
                         server.BroadcastMessage(message, this.Id, "all");
                         break;
                     }
@@ -63,7 +63,7 @@ namespace TCPServer
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                server.logger.Write(e.Message);
             }
             finally
             {
@@ -96,7 +96,7 @@ namespace TCPServer
                 Stream.Close();
             if (client != null)
                 client.Close();
-            Console.WriteLine("соединение закрыто");
+            server.logger.Write("соединение закрыто");
         }
 
         private bool ChangeSenderName(ref string message) // Проверка введенного имени получателя
@@ -129,7 +129,7 @@ namespace TCPServer
             {
                 message = ("команда введена неверно");
                 server.BroadcastMessage(message, this.Id, "client");
-                Console.WriteLine(message);
+                server.logger.Write(message);
                 message = null;
             }
             return false;
@@ -150,7 +150,7 @@ namespace TCPServer
                     {
                         a = true;
                         message = "Вы ввели неуникальное имя, повтрите ввод";
-                        Console.WriteLine("Попытка ввода неуникального имени");
+                        server.logger.Write("Попытка ввода неуникального имени");
                         server.BroadcastMessage(message, this.Id, "client");
                     }
                 }
