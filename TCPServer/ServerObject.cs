@@ -11,13 +11,13 @@ namespace TCPServer
     public class ServerObject
     {
         TcpListener tcpListener;
-        internal List<ClientWorker> clients = new List<ClientWorker>(); // все подключения
+        public List<ClientWorker> clients = new List<ClientWorker>(); // все подключения
 
-        internal void AddConnection(ClientWorker clientObject)
+        public void AddConnection(ClientWorker clientObject)
         {
             clients.Add(clientObject);
         }
-        protected internal void RemoveConnection(string id) // передаелать
+       public void RemoveConnection(string id) // передаелать
         {
             for (int i = 0; i < clients.Count; i++)
             {
@@ -29,7 +29,7 @@ namespace TCPServer
             }
         }
         // прослушивание входящих подключений
-        protected internal void Listen()
+        public void Listen()
         {
             try
             {
@@ -53,7 +53,7 @@ namespace TCPServer
         }
 
         // трансляция сообщения клиентам
-        protected internal void BroadcastMessage(string message, string id, string sendId)
+        public void BroadcastMessage(string message, string id, string sendId)
         {
             byte[] data = Encoding.Unicode.GetBytes(message);
             if (sendId == "all")
@@ -88,7 +88,7 @@ namespace TCPServer
             }
         }
         // отключение всех клиентов
-        protected internal void Disconnect()
+        public void Disconnect()
         {
             tcpListener.Stop(); //остановка сервера
 

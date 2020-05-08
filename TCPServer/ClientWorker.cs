@@ -9,10 +9,10 @@ namespace TCPServer
 
     public class ClientWorker
     {
-        protected internal string Id { get; private set; }
-        protected internal string senderName = "all"; // задает кому отправлять сообщения
-        protected internal NetworkStream Stream { get; private set; }
-        protected internal string userName;
+        public string Id { get; set; }
+        public string senderName = "all"; // задает кому отправлять сообщения
+        public NetworkStream Stream { get; set; }
+        public string userName;
         TcpClient client;
         ServerObject server;
 
@@ -90,7 +90,7 @@ namespace TCPServer
         }
 
         
-        protected internal void Close()
+        public void Close()
         {
             if (Stream != null)
                 Stream.Close();

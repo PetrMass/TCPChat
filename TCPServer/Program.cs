@@ -4,9 +4,9 @@ namespace TCPServer
 {
     class Program
     {
-        static ServerObject server; // сервер
         static void Main(string[] args)
         {
+            ServerObject server = new ServerObject();
             try
             {
                 server = new ServerObject();
