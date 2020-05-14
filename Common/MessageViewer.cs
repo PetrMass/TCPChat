@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TCPClient
+namespace Common
 {
-    class MessageViewer
+    public class MessageViewer
     {
         public void Write(string line)
         {
