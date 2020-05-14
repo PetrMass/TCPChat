@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TCPServer
+namespace Common
 {
     public class Logger
     {
         public void Write(string line)
         {
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(line);
             Console.ResetColor();
         }
