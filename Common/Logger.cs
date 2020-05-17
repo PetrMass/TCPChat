@@ -9,11 +9,11 @@ namespace Common
 {
     public class MyLogger
     {
-        //Logger logger = LogManager.GetCurrentClassLogger();
+        Logger logger = LogManager.GetCurrentClassLogger();
         public void Write(string line)
         {
-            //logger.Info(line);
-            Console.ForegroundColor = ConsoleColor.Green;
+            logger.Info(line);
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(line);
             Console.ResetColor();
         }
