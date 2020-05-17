@@ -14,7 +14,7 @@ namespace TCPServer
         TcpListener tcpListener;
         public List<ClientWorker> clients = new List<ClientWorker>(); // все подключения
         MessageViewer viewer = new MessageViewer();
-        public Logger logger = new Logger();
+        public MyLogger logger = new MyLogger();
 
         public void AddConnection(ClientWorker clientObject)
         {

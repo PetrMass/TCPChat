@@ -12,7 +12,7 @@ namespace TCPClient
         public NetworkStream stream;
         public const string host = "127.0.0.1";
         public const int port = 8888;
-        public Logger logger = new Logger();
+        public MyLogger logger = new MyLogger();
         MessageViewer viewer = new MessageViewer();
 
         public void SendMessage() // отправка сообщений
